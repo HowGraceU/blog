@@ -18,12 +18,12 @@ tags:
 </script>
 ```
 
-![跨域报错](img/axios-CORS/1.png)
+![跨域报错](../../../../img/axios-CORS/1.png)
 
 **反复查看后台代码，明明是已经加上了跨域的头部Access-Control-Allow-Origin，可是还是请求失败。**
 **代码倒是看不出任何问题，于是猜想是axios内部框架做了什么鬼祟，使用原生的XHR对象进行调试。**
 
-![原生XHR跨域](img/axios-CORS/2.png)
+![原生XHR跨域](../../../../img/axios-CORS/2.png)
 
 **果然请求到了，并且看到返回头里面带上了允许跨域头。仔细比对两次请求发现，axios发的请求的method竟是OPTIONS，这是什么，html难道不是只有GET，POST吗！？翻查[http mdn](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)**
 
@@ -72,7 +72,7 @@ Access-Control-Allow-Headers: Content-Type
 
 **看来是axios将请求头进行了设置导致跨域失败，进入axios源码查看，哪里进行了配置。进入源码查询发现axios在参数为json对象时，设置了content-type为application/json;charset=utf-8**
 
-![axios源码](img/axios-CORS/3.png)
+![axios源码](../../../../img/axios-CORS/3.png)
 
 ### 解决方案一：修改请求头
 
@@ -123,7 +123,7 @@ app
 
 **加上响应头之后，理应能够自定义content-type的值，且成功跨域才对。可是跑最开始的跨域请求却出现404**
 
-![OPTIONS请求404](img/axios-CORS/4.png)
+![OPTIONS请求404](../../../../img/axios-CORS/4.png)
 
 **竟然是404，一顿推理，妄加猜测，应是服务器没有路径为/getDate，method 为 OPTIONS 的路由，在服务器端加上路由。**
 
@@ -138,14 +138,14 @@ router
 
 **加上后自定义头部的跨域请求也可以正常跨域了**
 
-![预检请求OPTOINS](img/axios-CORS/5.png)
+![预检请求OPTOINS](../../../../img/axios-CORS/5.png)
 
-![预检请求POST](img/axios-CORS/6.png)
+![预检请求POST](../../../../img/axios-CORS/6.png)
 
 **由上面2图可以看出，预检跨域请求，浏览器会发送2个请求到服务器端，一个是OPTIONS预检，一个是POST请求，产生2条抓包。**
 
 </br>
-### 题外 跨域资源共享标准 （有些不常用，mark一下）
+### 题外：跨域资源共享标准 （有些不常用，mark一下）
 
 **跨域资源共享标准（ [cross-origin sharing standard](http://www.w3.org/TR/cors/) ）允许在下列场景中使用跨域 HTTP 请求：**
 

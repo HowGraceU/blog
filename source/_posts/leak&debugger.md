@@ -2,7 +2,9 @@
 date: 2018-08-23
 title: 常见的内存泄露和排查
 description: 常见的内存泄露和排查
-categories: ["js", "devtools"]
+tags:
+    - js
+    - devtools
 author: jinqixiao
 ---
 # 内存泄露
@@ -87,13 +89,13 @@ setInterval(replaceObj, 1000);
 ```
 上述代码调用结果如下图
 
-![无闭包时函数调用](../img/leak&debugger/1.jpg)
+![无闭包时函数调用](../../../../img/leak&debugger/1.jpg)
 
 断点进函数查看，并没有闭包引用，并且打印稳定1秒钟1个
 
 正常时候的内存情况为下图
 
-![正常内存](../img/leak&debugger/2.jpg)
+![正常内存](../../../../img/leak&debugger/2.jpg)
 
 ---
 分割线
@@ -123,7 +125,7 @@ setInterval(replaceObj, 1000)
 
 上述代码调用结果如下图
 
-![有闭包时控函数调用](../img/leak&debugger/4.jpg)
+![有闭包时控函数调用](../../../../img/leak&debugger/4.jpg)
 
 断点进函数查看，函数内部存在闭包引用，每次创建的新对象都会引用上一个对象，导致每次创建的对象都不被GC回收。因为闭包引用而导致对象没有被回收，熟练使用谷歌调试也可以查出来,重点看代码三。
 
@@ -158,7 +160,7 @@ setInterval(replaceObj, 1000)
 
 文中代码在浏览器中运行时的内存情况
 
-![文中代码内存情况](../img/leak&debugger/5.jpg)
+![文中代码内存情况](../../../../img/leak&debugger/5.jpg)
 
 导致内存泄露的原因是在同一个父作用域下创建闭包时，这个作用域是共享的。代码中closeFn的闭包作用域和unused的闭包作用域是共享的。即便unused函数从未被使用且不可能被使用，它对oldObj的引用造成了oldObj的活跃（阻止它被回收）。代码三中closeFn拥有的闭包与代码二中closeFn拥有的闭包相同。
 
@@ -168,7 +170,7 @@ setInterval(replaceObj, 1000)
 
 在老版本谷歌上显示为Profiles，新版本谷歌改名为Menory，文中使用谷歌版本69。该功能可以对js内存进行快照，也可以记录一段时间内的内存分配情况，如下图。
 
-![快照、录像](../img/leak&debugger/6.jpg)
+![快照、录像](../../../../img/leak&debugger/6.jpg)
 
 以上文代码三内存泄露为例，
 
@@ -176,7 +178,7 @@ setInterval(replaceObj, 1000)
 
 快照中summary视图提供了不同类型的分配对象以及他们的合计大小。shallow size表示一个特定类型所有对象总和，retained size表示此对象的shallow size和保留此对象的其他对象的shallow size总和，distance表示对象到GC根（最初引用的那块内存）的最短距离。
 
-![快照](../img/leak&debugger/7.jpg)
+![快照](../../../../img/leak&debugger/7.jpg)
 
 图中的字符串的shallow size等于retained size，大概因为字符串不是引用类型。
 字符串上面的closeFn函数的shallow size只有56，二retained size的大小是3000640，是因为这个对象被其他对象引用，其他对象的总大小加上closeFn函数的shallow size得到3000640。
@@ -186,7 +188,7 @@ setInterval(replaceObj, 1000)
 
 快照中comparison视图提供了这一次快照与上一次快照直接的对比
 
-![快照对比](../img/leak&debugger/8.jpg)
+![快照对比](../../../../img/leak&debugger/8.jpg)
 
 这个视图里能清晰看出这一次快照与上一次快照新增，删除了多少对象。
 
@@ -194,11 +196,11 @@ setInterval(replaceObj, 1000)
 
 devTools还提供了录像功能，点击Profiles，选择第二个切换到录像。
 
-![切换录像](../img/leak&debugger/9.jpg)
+![切换录像](../../../../img/leak&debugger/9.jpg)
 
 开始录像后能清晰看到网页根据时间轴所产生的内存，可以选择某一时间段去查看其中的内存分配
 
-![录像](../img/leak&debugger/10.jpg)
+![录像](../../../../img/leak&debugger/10.jpg)
 
 ## 参考文献
 javaScript中4种常见的内存泄露陷阱(http://web.jobbole/com/88463)

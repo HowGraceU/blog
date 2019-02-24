@@ -2,7 +2,9 @@
 title: WebRTC p2p h5 api科普
 date: 2018-07-12
 description: WebRTC实现网页端到网页端互看的流程及demo
-categories: ["h5", "WebRTC"]
+tags:
+    - h5
+    - WebRTC
 author: jinqixiao
 ---
 # WebRTC实现网页端到网页端互看的流程及demo
@@ -17,7 +19,7 @@ WebRTC是网页**实时通信**（Web Real-Time Communication）的缩写，可�
 
 ## WebRTC流程
 
-![WebRTC流程图](../img/h5_webrtc-h5api/pc流程图.png)
+![WebRTC流程图](../../../../img/h5_webrtc-h5api/pc流程图.png)
 
 备注：图中Signal Server（黄色）为信令服务器，可以理解为传递数据用的后台，图中部分老规范方法已经弃用，需用新规范方法代替。
 
@@ -125,7 +127,7 @@ pc.ontrack = (e) => {
 9.  **pc.onremovestream** 失去对端流事件
 
 ## 项目地址
-http://10.35.11.199:3000/jin_qixiao/WebRTC_p2p
+[https://github.com/HowGraceU/WebRTC_p2p](https://github.com/HowGraceU/WebRTC_p2p) 
 
 ## 参考文献
 WebRTC权威指南.pdf（已上传至项目中）

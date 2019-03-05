@@ -75,4 +75,44 @@ $().log123() // 打印 123
 
 ![jquery_propotype](../../../../img/jquery_technology_insider/jquery_propotype.png)
 
-### 
+### 类型判断
+
+**在判断一个对象是 json 还是 array 的时候，公认的有效的方法是使用 Object.prototype.toString.call( Obj )。对于得到的字符串还要进行 slice 才能拿到对象真正的类型。**
+
+**在 jquery 中，建立了一个 map 来获取对象的类型。**
+
+``` js
+const class2type = {};
+
+"Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ).forEach(name => {
+    class2type[ "[object " + name + "]" ] = name.toLowerCase();
+})
+
+/*
+* 得到
+* {
+*   "[object Boolean]": "boolean",
+*   "[object Number]": "number",
+*   "[object String]": "string",
+*   "[object Function]": "function",
+*   "[object Array]": "array",
+*   "[object Date]": "date",
+*   "[object RegExp]": "regexp",
+*   "[object Object]": "object",
+*   "[object Error]": "error",
+*   "[object Symbol]": "symbol"
+* }
+*/  
+
+const toString = class2type.toString;
+
+function toType( obj ) {
+	if ( obj == null ) {
+		return obj + "";
+	}
+
+	return typeof obj === "object" || typeof obj === "function" ?
+		class2type[ toString.call( obj ) ] || "object" :
+		typeof obj;
+}
+```

@@ -1,6 +1,6 @@
 ---
 title: js 小技巧
-date: 2019-03-6
+date: 2019-03-06
 tags:
     - js
 ---
@@ -51,4 +51,15 @@ function age2classical(age) {
 age2range(20); // 弱冠
 age2range(25); // undefined
 age2range(40); // 不惑
+```
+
+### 一行获取数组的交集、并集、差集
+
+``` js
+let a = [1, 2, 3];
+let b = [3, 4, 5];
+
+a.filter(item => b.includes(item)); // 交集
+[...new Set([...a, ...b])]; // 并集
+[...new Set([...a, ...b])].filter(item => !(a.includes(item) && b.includes(item))); // 差集
 ```

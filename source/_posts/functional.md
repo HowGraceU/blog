@@ -98,4 +98,102 @@ checkAge19(15); // false
 checkAge19(23); // true
 ```
 
-****
+**以下为个人查阅 lodash 源码，制作的简化版的 curry**
+
+``` js
+const curry = (func, partials, arity=func.length)=>{
+    const wrapper = function() {
+        let length = arguments.length;
+        let args = Array(length);
+        let index = length;
+
+        while (index--) {
+            args[index] = arguments[index];
+        }
+
+        if (partials) {
+            args = args.concat(partials);
+        }
+
+        if (length < arity) {
+            return curry(func, args, arity - length);
+        }
+
+        return func.apply(window, args.reverse());
+    }
+    return wrapper;
+}
+
+let abc = function(a, b, c) {
+    return [a, b, c];
+};
+
+let a = curry(abc);
+
+console.log(a(1)(2)(3)); // [1, 2, 3]
+
+let b = a(4);
+console.log(b(5)(6)); // [4, 5, 6]
+
+let c = a(7)(8);
+console.log(c(9)); // [7, 8, 9]
+```
+
+# 代码组合
+
+**f 和 g 都是函数，x 是在它们之间通过“管道”传输的值。特性有结合律，符合结合律意味着不管你是把 g 和 h 分到一组，还是把 f 和 g 分到一组都不重要。**
+
+``` js
+var compose = function(f,g) {
+    return function(x) {
+        return f(g(x));
+    };
+};
+
+// 结合律（associativity）
+var associative = compose(f, compose(g, h)) == compose(compose(f, g), h);
+// true
+```
+
+## pointfree
+
+**函数无须提及将要操作的数据是什么样的。一等公民的函数、柯里化（curry）以及组合协作起来非常有助于实现这种模式。**
+
+``` js
+// 非 pointfree，因为提到了数据：word
+var snakeCase = function (word) {
+    return word.toLowerCase().replace(/\s+/ig, '_');
+};
+
+// pointfree
+var replace = function (reg, replaceStr) {
+    return function (str) {
+		return str.replace(reg, replaceStr);
+	}
+}
+
+var toLowerCase = function (str) {
+	return str.toLowerCase();
+}
+
+var snakeCase = compose(replace(/\s+/ig, '_'), toLowerCase);
+
+snakeCase('A B'); // a_b
+```
+
+## debug
+
+**如果在 debug 组合的时候遇到了困难，那么可以使用下面这个实用的，但是不纯的 trace 函数来追踪代码的执行情况。**
+
+``` js
+var trace = curry(function(tag, x){
+  	console.log(tag, x);
+  	return x;
+});
+
+var snakeCase = compose(replace(/\s+/ig, '_'), compose(trace('[snakeCase]'), toLowerCase));
+
+snakeCase('A B');
+// log  [snakeCase] a b
+// 返回 a_b
+```

@@ -21,6 +21,7 @@ tags:
 ![跨域报错](../../../../img/axios-CORS/1.png)
 
 **反复查看后台代码，明明是已经加上了跨域的头部Access-Control-Allow-Origin，可是还是请求失败。**
+
 **代码倒是看不出任何问题，于是猜想是axios内部框架做了什么鬼祟，使用原生的XHR对象进行调试。**
 
 ![原生XHR跨域](../../../../img/axios-CORS/2.png)

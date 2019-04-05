@@ -52,6 +52,33 @@ let a = function foo() {
 console.log(foo); // 报错 foo is not defined
 ```
 
+---
+
+**2019-04-03 补充**
+
+**没有定义给属性的函数可以在函数内部重新定义函数名。**
+
+```js
+function test() {
+	console.log(test);
+	test = 1;
+	console.log(test);
+}
+
+test(); // 打印 函数 和 1
+test(); // 报错
+
+
+let test = function test() {
+	console.log(test);
+	test = 1;
+	console.log(test);
+}
+
+test();  
+test(); // 无法修改 test 值，打印 4 次函数
+```
+
 ### 不能 new es6 的函数
 
 **所谓 es6 的函数是指对象的简写函数和箭头函数。两者在 new 的时候都会报错，**
@@ -134,4 +161,27 @@ if (true) { // 不管是 true 还是 false，运行 foo2 时 foo2 还未赋值�
         console.log(1);
     }
 }
+```
+
+### 严格模式
+
+**es5 中规定了严格模式后，给 js 增加了很多合理的规范，但是严格模式对函数中的函数不起作用。**
+
+``` js
+function useStrict() {
+    'use strict';
+    console.log(this);
+}
+useStrict(); // 打印 undefined
+
+function noStrict() {
+    console.log(this);
+}
+noStrict(); // 打印 window
+
+function useStrict2() {
+    'use strict';
+    noStrict();
+}
+useStrict2(); // 打印 window
 ```

@@ -164,6 +164,10 @@ setInterval(replaceObj, 1000)
 
 导致内存泄露的原因是在同一个父作用域下创建闭包时，这个作用域是共享的。代码中closeFn的闭包作用域和unused的闭包作用域是共享的。即便unused函数从未被使用且不可能被使用，它对oldObj的引用造成了oldObj的活跃（阻止它被回收）。代码三中closeFn拥有的闭包与代码二中closeFn拥有的闭包相同。
 
+---
+**2019-04-04 记录，v8引擎修复了没有调用的函数对闭包的引用，但是在 closeFn 里面加上 debugger，可以看到还是保存了对闭包的引用。**
+___
+
 #   devTools调试
 
 ##  Profiles视图

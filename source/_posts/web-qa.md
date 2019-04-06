@@ -10,7 +10,7 @@ tags:
 
 **本贴记录一些常用的测试库，和基本使用方法。**
 
-## 单元测试
+## 一、单元测试
 
 **使用 karma、phantomjs（无头浏览器） 进行单元测试（小函数、功能），并使用 karma-coverage 生成报表。**
 
@@ -71,11 +71,11 @@ describe('加一函数测试', function () {
 
 ![unit test reporters](../../../../img/web_qa/unit_test_reporters.png)
 
-## 性能测试
+## 二、性能测试
 
-## 安全测试
+## 三、安全测试
 
-## 功能测试
+## 四、功能测试
 
 ### 模拟用户操作
 
@@ -183,7 +183,7 @@ mocha.run(() => {
 
 ![mocha test](../../../../img/web_qa/mocah_test.png)
 
-## UI测试
+## 五、UI测试
 
 **使用 backstopjs 进行 ui 测试。**
 

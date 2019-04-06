@@ -9,7 +9,7 @@ tags:
 **在学数学时，同学们总在一起打趣：学这么多的函数运算有什么用，以后买菜总不能先列一个函数，算出该付多少钱吧。可谁知，在科技高速发展的时代，打趣的话也快要“实现”了。**
 **在 css3 中，退出了新属性——— matrix(矩阵)，这不正是大一时候学的线性代数吗（好在大一的时候还不是很皮，都认真听讲了）**
 
-### 矩阵计算
+### 一、矩阵计算
 
 **css3 中的 matrix 用来代替多个 transfrom 属性或者一些 transfrom 无法实现的效果，就来看一看 matrix 是怎么实现变换的吧。**
 
@@ -46,7 +46,7 @@ transform: matrix(0, 1, 1, 0, 300, 100);
 
 <iframe src="https://howgraceu.github.io/demo/matrix/" style="margin-left: -2em; width: 100%; height: 225px;"><iframe>
 
-### matrix 与 transfrom 各个属性的转换。
+### 二、matrix 与 transfrom 各个属性的转换。
 
 **transfrom 的各个属性能够与 matrix 相互转换。**
 
@@ -79,7 +79,7 @@ rotate: rotate(θ);
 transform: matrix(cosθ * x, sinθ * x, -sinθ * y, cosθ * y, 0, 0);
 ```
 
-### matrix 与 transfrom 转换函数。
+### 三、matrix 与 transfrom 转换函数。
 
 **根据 matrix 与 transfrom 之间的关系，可以提出一个函数来进行两者之间的转换（转换顺序为先 transfrom 再 rotate）。**
 

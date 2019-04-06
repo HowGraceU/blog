@@ -9,15 +9,15 @@ author: jinqixiao
 ---
 # WebRTC实现网页端到网页端互看的流程及demo
 
-## - 什么是WebRTC
+##  一、什么是WebRTC
 
 WebRTC是网页**实时通信**（Web Real-Time Communication）的缩写，可以让网页**无需安装插件**，进行**实时**语音对话或视频对话的技术，此例实现的是网页之间实时视频通信。
 
-## 准备所需材料
+## 二、准备所需材料
 
 2台有摄像头的电脑、高版本浏览器（这里用到是谷歌65）、信令服务器（可以用node实现，也可以用sip实现，作用是把页面的生成的数据发送给对端）、https服务器（webRTC访问本地设备需要https）
 
-## WebRTC流程
+## 三、WebRTC流程
 
 ![WebRTC流程图](../../../../img/h5_webrtc-h5api/pc流程图.png)
 
@@ -126,8 +126,8 @@ pc.ontrack = (e) => {
 
 9.  **pc.onremovestream** 失去对端流事件
 
-## 项目地址
+## 四、项目地址
 [https://github.com/HowGraceU/WebRTC_p2p](https://github.com/HowGraceU/WebRTC_p2p) 
 
-## 参考文献
+## 五、参考文献
 WebRTC权威指南.pdf（已上传至项目中）

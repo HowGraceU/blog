@@ -10,7 +10,7 @@ tags:
 
 **函子是函数式编程中最重要的数据类型，也是基本的运算单位和功能单位。**
 
-## 容器
+## 一、容器
 
 **我们创建一个容器，这个容器就职于装载值，并且不会向容器添加新属性或者方法。**
 
@@ -39,7 +39,7 @@ Container.of("bombs") // Container('bombs')
 
 **这样我们就能够在不离开 Container 的情况下操作容器里面的值，并且这很函数式。**
 
-## Maybe
+## 二、Maybe
 
 **错误处理时，可以使用 Maybe 函子**
 
@@ -66,7 +66,7 @@ Maybe.of("bombs") // Maybe('bombs')
     .map(prop('length')) // 当检测到 value 为null，不运行 prop 函数，避免函数运行时报错，返回 Maybe(null)
 ```
 
-## Either
+## 三、Either
 
 **数学中没有 if...else，我们可以用 either 纯函数来处理 if...else**
 
@@ -98,7 +98,7 @@ Either.of("jqx", "bombs") // Either("jqx", "bombs")
     .map(prop('length')) // Either(8, false)
 ```
 
-## IO
+## 四、IO
 
 **我们有很多的不纯的操作，如取 storage 缓存，向后台请求接口，我们把这些函数包装在IO函子中，让调用者替我们承当不纯的部分。**
 
@@ -120,7 +120,7 @@ let unsafeWidth = IO.of(retWin).map(getInnerWidth);
 unsafeWidth.__value(); // 调用不纯函数得到窗口宽度
 ```
 
-## Monad
+## 五、Monad
 
 **下面有两个不纯的函数，但是把他们包装一下，每次都返回 IO 函子，包装他们的函数是一个纯函数。**
 

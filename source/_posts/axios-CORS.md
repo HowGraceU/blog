@@ -28,11 +28,11 @@ tags:
 
 **果然请求到了，并且看到返回头里面带上了允许跨域头。仔细比对两次请求发现，axios发的请求的method竟是OPTIONS，这是什么，html难道不是只有GET，POST吗！？翻查[http mdn](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)**
 
-## xhr跨域请求
+## 一、xhr跨域请求
 
 **出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求。 例如，XMLHttpRequest和Fetch API遵循同源策略。 这意味着使用这些API的Web应用程序只能从加载应用程序的同一个域请求HTTP资源，除非使用CORS头文件。以下三种情况下跨域请求的结果皆不相同。**
 
-### 简单请求
+### 二、简单请求
 
 **某些请求不会触发 CORS 预检请求。若请求满足所有下述条件，则该请求可视为“简单请求”：**
 
@@ -57,7 +57,7 @@ tags:
 *   **请求中的任意XMLHttpRequestUpload 对象均没有注册任何事件监听器；XMLHttpRequestUpload 对象可以使用 XMLHttpRequest.upload 属性访问。（文件上传对象）**
 *   **请求中没有使用 ReadableStream 对象。**
 
-### 预检请求
+### 三、预检请求
 **简单来说，请求不满足简单请求规范，则为预检请求。预检请求要求必须首先使用 OPTIONS 方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。**
 
 **从文章开头的例子中可以看出我们的OPTIONS是一个预检请求，应该是由axios发送跨域请求的时候进行了头部的设置导致。从OPSTIONS的抓包上看，请求头里面倒是有需要预检的首部字段。**
@@ -75,7 +75,7 @@ Access-Control-Allow-Headers: Content-Type
 
 ![axios源码](../../../../img/axios-CORS/3.png)
 
-### 解决方案一：修改请求头
+### 四、解决方案一：修改请求头
 
 **一种解决方法是axios设置默认头部**
 
@@ -94,7 +94,7 @@ Access-Control-Allow-Headers: Content-Type
 </script>
 ```
 
-### 解决方案二：服务端添加预检支持
+### 五、解决方案二：服务端添加预检支持
 
 **这毕竟是一个跨域资源，是多人共享的资源，不能保证每个人请求头都属于简单请求，所以应该在服务器端对预检请求添加支持。**
 
@@ -146,7 +146,7 @@ router
 **由上面2图可以看出，预检跨域请求，浏览器会发送2个请求到服务器端，一个是OPTIONS预检，一个是POST请求，产生2条抓包。**
 
 </br>
-### 题外：跨域资源共享标准 （有些不常用，mark一下）
+### 六、题外：跨域资源共享标准 （有些不常用，mark一下）
 
 **跨域资源共享标准（ [cross-origin sharing standard](http://www.w3.org/TR/cors/) ）允许在下列场景中使用跨域 HTTP 请求：**
 

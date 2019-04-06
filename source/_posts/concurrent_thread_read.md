@@ -9,7 +9,7 @@ tags:
 **最近看到了一个帮助没有 Worker 的浏览器开启多进程处理的 js 库 ———— [Concurrent.Thread.js](https://github.com/HowGraceU/Concurrent.Thread.js)。**
 **这个库使古老的单进程的 js 拥有了多进程的能力，这瞬间使我产生了浓厚的兴趣，于是决定去探究一下这个 js 到底是怎么执行的。**
 
-### 断点进入 create 函数查看
+### 一、断点进入 create 函数查看
 
 **最直接的方法便是通过断点，进入改 js 的起点，一步一步得深入。**
 
@@ -21,7 +21,7 @@ tags:
 
 **由于之后的代码看得一脸蒙，决定换一种方法去探究该 js**
 
-### 查看 devtool performace
+### 二、查看 devtool performace
 
 **谷歌浏览器提供了 performace 用来抓页面的一段时间内 js 的运行情况和页面渲染的情况，这里也可以用这个工具来监听一下 concurrentJs 的运行情况。**
 

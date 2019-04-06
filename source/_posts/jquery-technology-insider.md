@@ -10,7 +10,7 @@ tags:
 
 **记录前端鼻祖 ———— jquery 的 js 技巧**
 
-### jquery 对象
+### 一、jquery 对象
 
 **在没有 es6 的 Class 之前，js 中都使用 function 以及他的 propotype 来实现面向对象。但是尽管如此，总有人在初始化实例时，忘记加上 new 关键字，这就会造成意外的全局污染。**
 
@@ -55,7 +55,7 @@ console.log(man.prototype === woman.prototype); // 打印 true
 
 ![jquery_init](../../../../img/jquery_technology_insider/jquery_init.png)
 
-### jquery 原型
+### 二、jquery 原型
 
 **在使用 jquery 的插件时，在 $.fn 上扩展方法，对象 $() 上就能访问刚刚挂载的方法。**
 
@@ -75,7 +75,7 @@ $().log123() // 打印 123
 
 ![jquery_propotype](../../../../img/jquery_technology_insider/jquery_propotype.png)
 
-### 类型判断
+### 三、类型判断
 
 **在判断一个对象是 json 还是 array 的时候，公认的有效的方法是使用 Object.prototype.toString.call( Obj )。对于得到的字符串还要进行 slice 才能拿到对象真正的类型。**
 
@@ -117,7 +117,7 @@ function toType( obj ) {
 }
 ```
 
-### 绑定事件
+### 四、绑定事件
 
 **jQuery 的绑定事件不仅可以给元素绑，还可以给对象绑，还可以根据参数来判断是否进行事件委托，还可以绑定自定义的事件，多才多艺的一个成员。他会在绑定的时候将需要触发的事件绑定在对象的一个属性上，保存在内存中。**
 

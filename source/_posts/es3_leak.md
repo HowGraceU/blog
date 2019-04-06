@@ -6,7 +6,7 @@ tags:
     - leak
 ---
 
-## eval 导致闭包引用不释放
+## 一、eval 导致闭包引用不释放
 
 ### 利用 weakSet 查看内存引用。
 
@@ -83,7 +83,7 @@ console.log(weakset); // WeakSet {Jqx, Jqx}，两个对象都在
 
 **此外，eval也容易引起网站被攻击，不到万不得已就不要使用了。**
 
-## new Function
+## 二、new Function
 
 **讲完 eval，再来说说 new Function。Function 的调用与 eval 相似，不过 Function 中若有变量，则都指向全局变量，而不会对闭包中的变量进行引用，所以也不会像 eval 一样造成内存泄漏。**
 
@@ -97,7 +97,7 @@ var test = function () {
 test()(); // 打印 jqx
 ```
 
-## with
+## 三、with
 
 **说到 eval 肯定也要提一嘴 with，俩兄弟双双欺骗词法作用域（在运行时改变作用域）。**
 
@@ -116,7 +116,7 @@ console.log(obj.job);
 console.log(window.job);
 ```
 
-## 严格模式下的 eval 和 with
+## 四、严格模式下的 eval 和 with
 
 **严格模式下 with 就直接被禁用了，而 eval 无法修改作用域。不过 eval 还是可以引用到闭包中的变量，所以闭包还是不会被释放。**
 

@@ -8,7 +8,7 @@ tags:
 
 **近期在node开发的过程中，碰到require文件后，无法调用文件内定义的方法，翻阅资料怀疑是循环引用，于是自己进行了测试。**
 
-## 循环引用测试
+## 一、循环引用测试
 
 **a.js**
 ``` js
@@ -61,7 +61,7 @@ get a.test i'm a
 
 **而node .\b.js的时候，require('./a')，b.js停留在var a = require('./a');，此时还没有运行module.exports = { test: "i'm b" }，得到b模块的内容为b的module.exports {}，运行完a之后，执行 module.exports = ... 代码，将module.exports指向了另一个对象，而缓存中b模块的内容则是之前引用的b的module.exports，所以b的test属性并没有加在b模块在内存中的对象上，所以之后再有require('./b')拿到的都是空对象 {}**
 
-## 避免循环引用产生的问题
+## 二、避免循环引用产生的问题
 
 *   尽量不使用module.exports重置模块的引用。
 *   非要使用module.exports，module.exports应该放在js的开头，即其他逻辑之前。

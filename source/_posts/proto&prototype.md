@@ -41,7 +41,7 @@ function myNew(fun) {
 
 ### Object.getPrototypeOf
 
-**对于这个方法官方的说法是，Object.getPrototypeOf() 方法返回指定对象的原型（内部[[ Prototype ]]属性的值）。而实际上，因为 [__proto__ 属性是被 Web 标准弃用的属性](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)，推荐使用 Object.getPrototypeOf 来代替 __proto__。**
+**对于这个方法官方的说法是，Object.getPrototypeOf() 方法返回指定对象的原型（内部[[ Prototype ]]属性的值）。而事实上，因为 [__proto__ 属性是被 Web 标准弃用的属性](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)，推荐使用 Object.getPrototypeOf 来代替 __proto__。**
 
 ## 二、prototype
 
@@ -100,6 +100,18 @@ function _superPropBase(object, property) {
             break;
     }
     return object;
+}
+
+// 在原型上定义属性和方法，这些方法都是不可枚举的
+function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value"in descriptor)
+            descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
 }
 
 // 创造类，向原型上定义方法或者在类上定义静态属性
@@ -175,7 +187,7 @@ function(_A) {
 
 **B.prototype 是一个以 A.prototype 为原型创造的实例，也就是说，B.prototype 是一个 A对象的实例。所以说 prototype 是用于类（构造函数） B，且通过 new 关键字创造的实例，默认没有 prototype 而是 __proto__。**
 
-**以前的 es5 版本的继承，不会将子类的 __proto__人为设为父类（一般只有通过 new 关键字得到的实例才会有__proto__），但在 es6 规范出来之后多出来这一步。这个 __proto__ 不仅仅将两个类关联起来这么简单，它还实现了父类上的静态属性的继承。当取不到子类的静态属性时，会去父类找静态属性（子类的 __proto__），如下。**
+**以前的 es5 版本的继承，不会将子类的 __proto__人为设为父类（一般只有通过 new 关键字得到的实例才会有__proto__），但在 es6 规范出来之后多出来这一步。es6 中的方法在 prototype 上是无法枚举的属性。这个 __proto__ 不仅仅将两个类关联起来这么简单，它还实现了父类上的静态属性的继承。当取不到子类的静态属性时，会去父类找静态属性（子类的 __proto__），如下。**
 
 ![extends static](../../../../img/proto&prototype/extends_static.png)
 

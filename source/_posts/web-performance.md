@@ -66,4 +66,60 @@ tags:
 
 **将图层上传到 gpu 中，并将多个图层合并生成图像，在网页中显示。可以使用css3d、transform 来开启硬件加速，使用 gpu 来跳过 layout 和 paint 的耗时。**
 
+**打开 [w3school 的 animation](http://www.w3school.com.cn/tiy/t.asp?f=css3_animation), css 如下，以及使用 devtool 的 performance 抓 10 秒网页性能。**
+
+``` css
+animation:mymove 5s infinite;
+
+@keyframes mymove
+{
+    from {left:0px;}
+    to {left:200px;}
+}
+```
+
+![no_3d](../../../../img/web-performance/no_3d.png)
+
+**将动画中的 left 改为 translate，并使用 performance 抓 10 秒网页性能，可以看到这里已经跳过了 layout 和 paint。**
+
+``` css
+animation:mymove 5s infinite;
+
+@keyframes mymove
+{
+    from {transform: translate(0, 0);}
+    to {transform: translate(200px, 0);}
+}
+```
+
+![css_3d](../../../../img/web-performance/css_3d.png)
+
 **总结：以上过程可以将外链的 js 文件置于文件底部，避免阻塞渲染。由于页面是由多个图层合并的，所以经常需要变换位置的元素可以强制提升为一个图层，可以减少重排时间。对于重要的元素可以使用硬件加速减少 layout 和 paint 的耗时。**
+
+## 三、页面加载
+
+**关于页面加载的有几个关键的概念：**
+
+**1.    TTFB（Time To First Byte） 客户端拿到第一个字节的时间。**
+
+**2.    FP（First Paint） 浏览器首次绘制。**
+
+**3.    FCP（First Contentful Paint） 浏览器首次有内容的绘制。**
+
+**4.    FMP（First Meaningful Paint） 浏览器首次有意义的绘制。**
+
+**5.    DCL（DOM Content Loaded） 浏览器首次有意义的绘制。**
+
+**6.    L（Loaded） 浏览器首次有意义的绘制。**
+
+**7.    TTI（Time To Interaction） 可交互时间。**
+
+**以淘宝首页为例，以下为打开淘宝时间的各个时间段。**
+
+![TTFB](../../../../img/web-performance/TTFB.png)
+
+**首页请求的 TTFB**
+
+![taobao_performance](../../../../img/web-performance/taobao_performance.png)
+
+**淘宝的商品页面的性能抓取，可以点击各个时间段来查看各个阶段的耗时。**

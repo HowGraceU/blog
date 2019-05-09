@@ -122,4 +122,26 @@ animation:mymove 5s infinite;
 
 ![taobao_performance](../../../../img/web-performance/taobao_performance.png)
 
-**淘宝的商品页面的性能抓取，可以点击各个时间段来查看各个阶段的耗时。**
+**淘宝的商品页面的性能抓取，可以点击各个时间段来查看各个阶段的耗时。并且可以通过 window 的 performance 对象打印出 FP 和 FCP 的耗时。**
+
+``` js
+let paint = window.performance.getEntriesByType('paint');
+console.log(paint);
+
+[
+  {
+    "name": "first-paint",
+    "entryType": "paint",
+    "startTime": 412.46000002138317,
+    "duration": 0
+  },
+  {
+    "name": "first-contentful-paint",
+    "entryType": "paint",
+    "startTime": 412.46000002138317,
+    "duration": 0
+  }
+]
+```
+
+**可以选择 ssr 做首屏渲染，减少首屏的请求时间，用 spa 做页面切换，增加对相同库的使用效率。**

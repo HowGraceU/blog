@@ -63,3 +63,39 @@ a.filter(item => b.includes(item)); // 交集
 [...new Set([...a, ...b])]; // 并集
 [...new Set([...a, ...b])].filter(item => !(a.includes(item) && b.includes(item))); // 差集
 ```
+
+### 四、小数，字符串取整（from vue）
+
+``` js
+'1' >>> 0 // 1
+1.3 >>> 0 // 1
+```
+
+### 五、数组乱序
+
+``` js
+const arr = [1,2,3,4,5,6,7,8];
+
+// 第一种
+arr.sort(() => 0.5 - Math.random());
+
+// 第二种
+function break(arr) {
+	for(let i = 0, len = arr.length; i < len; i++) {
+		let random = Math.random() * len >>> 0;
+		let temp = arr[i];
+		arr[i] = arr[random];
+		arr[random] = temp;
+	}
+}
+```
+
+### 六、获取 0-9a-z 随机数（from redux）
+
+``` js
+function getHash() {
+	return Math.random().toString(36).slice(2);
+}
+
+getHash(); // "l8jlqzaun7"
+```
